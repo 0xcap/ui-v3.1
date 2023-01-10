@@ -10,7 +10,7 @@ export const DEFAULT_HISTORY_SORT_KEY = ['timestamp', true];
 export const DEFAULT_HISTORY_COUNT = 50;
 export const DEFAULT_CHAIN_ID = 42161;
 export const CHAINDATA = {
-	31337: {
+/*	31337: {
 		label: 'localhost',
 		explorer: 'http://localhost:8545',
 		rpc: 'http://127.0.0.1:8545/',
@@ -34,11 +34,11 @@ export const CHAINDATA = {
 		nativeAssetName: "GO",
 		nativeAssetSymbol: "GO",
 		nativeAssetDecimals: 18,
-	},
+	},*/
 	42161: {
 		label: 'arbitrum',
 		explorer: 'https://arbiscan.io',
-		rpc: 'https://rpc.ankr.com/arbitrum', // for walletconnect
+		rpc: 'https://arb1.arbitrum.io/rpc', // for walletconnect
 		currencyName: 'USDC',
 		currencyAddress: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8', // USDC address
 		currencyDecimals: 6, // USDC
