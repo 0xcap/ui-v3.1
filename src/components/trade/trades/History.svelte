@@ -82,7 +82,7 @@ $: fetchData($address);
               <Cell>-</Cell>
             {/if}
           {:else}
-            <Cell hasClass={history.pnl > 0 ? 'green' : 'red'}>{formatForDisplay(formatUnits(history.pnl, 6))}</Cell>
+            <Cell hasClass={history.pnl >= 0 ? 'green' : 'red'}>{#if history.pnl > 0}+{/if}{formatForDisplay(formatUnits(history.pnl, 6))}</Cell>
           {/if}
         </Row>
       </div>
