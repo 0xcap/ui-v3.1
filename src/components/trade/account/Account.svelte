@@ -91,7 +91,13 @@
 		</div>
 		<div class="row">
 			<div class="label" use:tooltip={{content: 'Unrealized profit / loss incurred by open positions.'}}>UP/L</div>
-			<div class="value">${formatForDisplay($upl)}</div>
+			{#if $upl > 0}
+				<div class="value green">+${formatForDisplay($upl)}</div>
+			{:else if $upl < 0}
+				<div class="value red">-${formatForDisplay($upl * -1)}</div>
+			{:else}
+				<div class="value">${formatForDisplay($upl)}</div>
+			{/if}
 		</div>
 		<div class="row">
 			<div class="label" use:tooltip={{content: 'Equals Balance + UP/L.'}}>Equity</div>
@@ -107,7 +113,15 @@
 		</div>
 		<div class="row">
 			<div class="label" use:tooltip={{content: 'Equals Equity / Locked Margin. When < 100%, you can no longer open new positions. When < 20%, your account is liquidated.'}}>Margin Level</div>
-			<div class="value">{$marginLevel == Infinity ? "∞" : `${formatForDisplay($marginLevel)}%`}</div>
+			{#if formatForDisplay($marginLevel) > 100}
+				<div class="value green">{$marginLevel == Infinity ? "∞" : `${formatForDisplay($marginLevel)}%`}</div>
+			{:else if formatForDisplay($marginLevel) < 100 && formatForDisplay($marginLevel) > 30}
+				<div class="value orange">{`${formatForDisplay($marginLevel)}%`}</div>
+			{:else if formatForDisplay($marginLevel) < 30 && formatForDisplay($marginLevel) > 0}
+				<div class="value red">{`${formatForDisplay($marginLevel)}%`}</div>
+			{:else}
+				<div class="value">{`${formatForDisplay($marginLevel)}%`}</div>
+			{/if}
 		</div>
 	</div>
 	<div class='buttons'>
