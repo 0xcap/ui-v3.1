@@ -54,11 +54,6 @@
 		justify-content: flex-start;
 		flex-grow: 1;
 	}
-	.available-amount-zero {
-		display: flex;
-		justify-content: flex-end;
-		flex-grow: 0;
-	}
 	.available-amount {
 		display: flex;
 		justify-content: flex-end;
@@ -80,7 +75,7 @@
 
 		<div class='available-currency'>
 			<div class='label'>Wallet Balance:</div>
-			<div class={userCurrency > 0 ? `available-amount` : `available-amount-zero`} on:click={setAmountToMax}>{`${formatForDisplay(userCurrency)} ${$currencyName}`}</div>
+			<div class='available-amount' on:click={setAmountToMax}>{`${formatForDisplay(userCurrency)} ${$currencyName}`}</div>
 		</div>
 
 		<div>

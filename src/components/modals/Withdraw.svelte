@@ -22,11 +22,7 @@
 	}
 
 	function setAmountToMax() {
-		let marginFixedDigits = $freeMargin.toFixed(6)
-		if (marginFixedDigits > 0)
-		{
-			amount = $freeMargin.toFixed(6)
-		}
+      if ($freeMargin * 1 > 0) amount = $freeMargin.toFixed(6)
 	}
 
 	onMount(() => {
@@ -45,11 +41,6 @@
 		display: flex;
 		justify-content: flex-start;
 		flex-grow: 1;
-	}
-	.available-amount-zero {
-		display: flex;
-		justify-content: flex-end;
-		flex-grow: 0;
 	}
 	.available-amount {
 		display: flex;
@@ -72,7 +63,7 @@
 
 		<div class='available-currency'>
 			<div class='label'>Free Margin:</div>
-			<div class={$freeMargin > 0 ? `available-amount` : `available-amount-zero`} on:click={setAmountToMax}>{`$${formatForDisplay($freeMargin)}`}</div>
+			<div class='available-amount' on:click={setAmountToMax}>{$freeMargin >= 0 ? `$${formatForDisplay($freeMargin)}` : `-$${formatForDisplay($freeMargin) * -1}`}</div>
 		</div>
 
 		<div>

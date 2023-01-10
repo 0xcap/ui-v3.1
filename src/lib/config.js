@@ -53,6 +53,10 @@ export const CHAINDATA = {
 			wsNetwork: 'arb-mainnet'
 		},
 		chainlinkSchema: "ethereum-mainnet-arbitrum-1",
+		chainlinkContracts: {
+			'BTC-USD': "0x942d00008d658dbb40745bbec89a93c253f9b882",
+			'ETH-USD': "0x3607e46698d218b3a5cae44bf381475c0a5e2ca7",
+		},
 		subgraphUrl: "https://api.thegraph.com/subgraphs/name/kappacappa/capv4",
 		chainName: 'Arbitrum One',
 		chainId: '0xA4B1', //chainId number in hexadecimal prefixed by 0x
@@ -62,9 +66,3 @@ export const CHAINDATA = {
 	},
 }
 export const CHAINLINK_URL = "https://atlas-postgraphile.public.main.prod.cldev.sh/graphql"
-export const CHAINLINK_CONTRACT_ADDRESSES = {
-	42161: {
-	'BTC-USD': "0x942d00008d658dbb40745bbec89a93c253f9b882",
-	'ETH-USD': "0x3607e46698d218b3a5cae44bf381475c0a5e2ca7",
-	},
-}
