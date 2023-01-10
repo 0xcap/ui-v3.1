@@ -55,8 +55,8 @@
       <Cell hasClass={position.isLong ? 'green' : 'red'}>{formatSide(position.isLong)}</Cell>
       <Cell><a href={`/trade/${position.market}`}>{formatMarketName(position.market)}</a></Cell>
       <Cell>{formatForDisplay(formatUnits(position.price, 18))}</Cell>
-      <Cell>{formatForDisplay(formatUnits(position.size, 6))}</Cell>
-      <Cell>{formatForDisplay(formatUnits(position.margin, 6))}</Cell>
+      <Cell>${formatForDisplay(formatUnits(position.size, 6))}</Cell>
+      <Cell>${formatForDisplay(formatUnits(position.margin, 6))}</Cell>
       <Cell hasClass={position.upl >= 0 ? 'green' : 'red'}>{#if position.upl > 0}+{/if}{formatForDisplay(formatUnits(position.upl, 6))}</Cell>
       <!--<Cell>{formatForDisplay(position.fundingTracker)}</Cell>-->
       <Cell isTools={true}>

@@ -128,12 +128,12 @@
 		else if (stopType == 'takeProfit')
 		{
 			_price = _tpPrice
-			data.isLong ? _orderType = 1 : _orderType = 2
+			_orderType = 1
 		}
 		else if (stopType == 'stopLoss')
 		{
 			_price = _slPrice
-			data.isLong ? _orderType = 2 : _orderType = 1
+			_orderType = 2
 		}
 
 		let params = {

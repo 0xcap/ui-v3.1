@@ -58,8 +58,8 @@
       <Cell hasClass={order.isLong ? 'green' : 'red'}>{formatSide(order.isLong, order.isReduceOnly)}</Cell>
       <Cell><a href={`/trade/${order.market}`}>{formatMarketName(order.market)}</a></Cell>
       <Cell>{formatForDisplay(formatUnits(order.price, 18))}</Cell>
-      <Cell>{formatForDisplay(formatUnits(order.size, 6))}</Cell>
-      <Cell>{formatForDisplay(formatUnits(order.margin, 6))}</Cell>
+      <Cell>${formatForDisplay(formatUnits(order.size, 6))}</Cell>
+      <Cell>${formatForDisplay(formatUnits(order.margin, 6))}</Cell>
       <Cell>{formatOrderType(order.orderType)}</Cell>
       <Cell isTools={true}>
 				{#if order.orderType !== 0}
