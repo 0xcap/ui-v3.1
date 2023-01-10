@@ -37,17 +37,18 @@
 	  font-weight: 600;
 	  letter-spacing: -0.045em;
 	  margin-top: 16px;
-	  margin-bottom: 16px;
+	  margin-bottom: 64px;
 	}
 
 	h4 {
-		margin-bottom: 64px;
+		margin-top: 16px;
 		font-size: 16px;
 		color: #aaa;
 	}
 
 	.button-wrapper {
 	  margin-bottom: 32px;
+	  margin-top: 32px;
 	}
 	.button {
 	  display: inline-block;
@@ -88,12 +89,14 @@
 	}
 
 	footer {
-	  border-top: 1px solid #555;
+	  border-top: 1px solid #333;
 	  padding: 24px 0;
+	  text-align: center;
 	}
 
 	.copyright {
-	  color: #888;
+		font-size: 80%;
+	  color: #777;
 	}
 
 </style>
@@ -105,7 +108,6 @@
   		<img src='im/logo-full.svg'>
   	</div>
   	<h1>Fully Decentralized Perpetuals Exchange</h1>
-  	<h4>This is v3.1 (beta) of the CAP protocol. Looking for <a href='https://v3.cap.finance'>v3</a>?</h4>
   </header>
 
   <div class='body'>
@@ -116,17 +118,25 @@
 
   		<p>CAP lets you trade crypto markets like BTC/USD and ETH/USD with leverage. It is decentralized, open source, and accessible to everyone.</p>
 
-  		<p>Over <strong>$5,000,000,000</strong> has already been traded on CAP! Get started in seconds.</p>
+  		<p>Over <strong>$5,200,000,000</strong> has already been traded on CAP! Get started in seconds.</p>
 
   		<div class='button-wrapper'>
-  			<a class='button' href='/trade'>Start Trading ▸</a>
+  			<a class='button' href='https://v3.cap.finance/trade'>Trade on v3 ▸</a>
+  			<h4>Isolated margin, dark oracle</h4>
+  		</div>
+
+  		<div class='button-wrapper'>
+  			<a class='button' href='/trade'>Trade on v3.1 ▸</a><br/>
+  			<h4>Cross margin, advanced orders, chainlink oracles</h4>
   		</div>
 
   	</section>
 
   	<section>
 
-  		<h2>Features</h2>
+  		<h2>Features (v3.1)</h2>
+
+  		<p>(v3 docs are <a href='https://docs.cap.finance'>here</a>.)</p>
 
   		<p>CAP has all the features you need for fast and secure on-chain trading, including:</p>
 
@@ -142,11 +152,11 @@
 
   	<section>
 
-  		<h2>How It Works</h2>
+  		<h2>How It Works (v3.1)</h2>
 
-  		<p>You buy to profit from rising prices. You sell to profit from falling prices.</p>
+  		<p>Buy to profit from rising prices and sell to profit from falling prices.</p>
 
-  		<p>Your profits are paid from the pool. Your losses are paid to the pool.</p>
+  		<p>Your profits are paid from the pool and your losses are paid to the pool.</p>
 
   		<ul>
   			<li>50% of trading fees go to the pool.</li>
