@@ -172,14 +172,6 @@
 
   	<section>
 
-  		<h2>Audits</h2>
-
-  		<p>Coming soon!</p>
-
-  	</section>
-
-  	<section>
-
   		<h2>Get Involved</h2>
 
   		<p>We believe everyone should be able to partake in the wealth creation made possible by the free markets. On CAP, value is transparently distributed. You can choose to participate as a trader, liquidity provider, code contributor, token holder, or simple community member. We recognize and encourage involvement of all kinds.</p>
