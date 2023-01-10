@@ -33,8 +33,10 @@
     }
     )
 
-    areaSeries = chart.addLineSeries({
-      color: '#07C9FF',
+    areaSeries = chart.addAreaSeries({
+      topColor: 'rgba( 7, 201,255, 0.6)',
+      bottomColor: 'rgba( 7, 201,255, 0)',
+      lineColor: '#07C9FF'
     })
 
     chart.priceScale().applyOptions({
