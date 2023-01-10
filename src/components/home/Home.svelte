@@ -121,8 +121,8 @@
   		<p>Over <strong>$5,200,000,000</strong> has already been traded on CAP! Get started in seconds.</p>
 
   		<div class='button-wrapper'>
-  			<a class='button' href='https://v3.cap.finance/trade'>Trade on v3 ▸</a>
-  			<h4>Isolated margin, dark oracle</h4>
+  			<a class='button' href='https://v3.cap.finance/#/trade'>Trade on v3 ▸</a>
+  			<h4>Isolated margin, simple orders, dark oracle</h4>
   		</div>
 
   		<div class='button-wrapper'>
