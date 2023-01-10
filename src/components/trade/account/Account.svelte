@@ -117,11 +117,11 @@
 		</div>
 		<div class="row">
 			<div class="label" use:tooltip={{content: 'Equals Equity / Locked Margin. When < 100%, you can no longer open new positions. When < 20%, your account is liquidated.'}}>Margin Level</div>
-			{#if formatForDisplay($marginLevel) > 100}
+			{#if $marginLevel == Infinity || formatForDisplay($marginLevel) > 100}
 				<div class="value green">{$marginLevel == Infinity ? "∞" : `${formatForDisplay($marginLevel)}%`}</div>
 			{:else if formatForDisplay($marginLevel) < 100 && formatForDisplay($marginLevel) > 30}
 				<div class="value orange">{`${formatForDisplay($marginLevel)}%`}</div>
-			{:else if formatForDisplay($marginLevel) < 30 && formatForDisplay($marginLevel) > 0}
+			{:else if formatForDisplay($marginLevel) <= 30 && formatForDisplay($marginLevel) > 0}
 				<div class="value red">{`${formatForDisplay($marginLevel)}%`}</div>
 			{:else}
 				<div class="value">{`${formatForDisplay($marginLevel)}%`}</div>
