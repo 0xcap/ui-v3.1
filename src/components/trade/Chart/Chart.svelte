@@ -27,13 +27,15 @@
             textColor: '#DDD',
         },
         grid: {
-            vertLines: { color: '#1e2226' }, //maybe #16191c
-            horzLines: { color: '#1e2226' }, //maybe #16191c
+            vertLines: { visible: false }, //maybe #16191c
+            horzLines: { visible: false }, //maybe #16191c
         },
     }
     )
 
-    areaSeries = chart.addAreaSeries()
+    areaSeries = chart.addLineSeries({
+      color: '#07C9FF',
+    })
 
     chart.priceScale().applyOptions({
       borderColor: '#1e2226',
