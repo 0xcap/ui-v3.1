@@ -3,10 +3,10 @@
   import { onMount } from "svelte";
   import { formatUnits } from '@lib/formatters';
   import { getLatestBlock } from '@lib/utils';
-  import { selectedMarketInfo } from "@lib/stores"
+  import { selectedMarketInfo, chainId } from "@lib/stores"
   import { LOADING_ICON } from '@lib/icons'
 
-  import { CHAINLINK_CONTRACT_ADDRESSES } from '@lib/config'
+  import { CHAINDATA } from '@lib/config'
 
   import { createChart } from 'lightweight-charts';
  
@@ -66,7 +66,7 @@ async function getChartData() {
     try {
 
       let priceHistory = await getChainlinkPriceHistory(
-        CHAINLINK_CONTRACT_ADDRESSES[$selectedMarketInfo.symbol]
+        CHAINDATA[$chainId]['chainlinkContracts'][$selectedMarketInfo.symbol]
       );
 
       if (!priceHistory) return;

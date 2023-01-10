@@ -7,7 +7,8 @@
 	import { onMount } from 'svelte'
 
 	import { withdraw } from '@api/account'
-	import { currencyName } from '@lib/stores'
+	import { formatForDisplay } from '@lib/formatters'
+	import { currencyName, freeMargin } from '@lib/stores'
 	import { focusInput, hideModal } from '@lib/ui'
 
 	let amount, isSubmitting;
@@ -20,6 +21,10 @@
 		isSubmitting = false;
 	}
 
+	function setAmountToMax() {
+      if ($freeMargin * 1 > 0) amount = $freeMargin.toFixed(6)
+	}
+
 	onMount(() => {
 		focusInput('Amount');
 	});
@@ -27,6 +32,23 @@
 </script>
 
 <style>
+	.available-currency {
+		margin-top: -6px;
+		margin-bottom: 16px;
+		display: flex;
+	}
+	.label {
+		display: flex;
+		justify-content: flex-start;
+		flex-grow: 1;
+	}
+	.available-amount {
+		display: flex;
+		justify-content: flex-end;
+		flex-grow: 0;
+		color: var(--primary);
+		cursor: pointer;
+	}
 </style>
 
 <Modal title='Withdraw' width={280}>
@@ -37,6 +59,11 @@
 
 		<div class="group">
 			<Input label='Amount' bind:value={amount} />
+		</div>
+
+		<div class='available-currency'>
+			<div class='label'>Free Margin:</div>
+			<div class='available-amount' on:click={setAmountToMax}>{$freeMargin >= 0 ? `$${formatForDisplay($freeMargin)}` : `-$${formatForDisplay($freeMargin) * -1}`}</div>
 		</div>
 
 		<div>
