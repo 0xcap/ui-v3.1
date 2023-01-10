@@ -53,7 +53,7 @@ export const CHAINDATA = {
 			wsNetwork: 'arb-mainnet'
 		},
 		chainlinkSchema: "ethereum-mainnet-arbitrum-1",
-		subgraphUrl: "http://localhost:8000/arbitrum-subgraph",
+		subgraphUrl: "https://api.thegraph.com/subgraphs/name/kappacappa/capv4",
 		chainName: 'Arbitrum One',
 		chainId: '0xA4B1', //chainId number in hexadecimal prefixed by 0x
 		nativeAssetName: 'ETH',
