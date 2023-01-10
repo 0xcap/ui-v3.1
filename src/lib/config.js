@@ -63,6 +63,8 @@ export const CHAINDATA = {
 }
 export const CHAINLINK_URL = "https://atlas-postgraphile.public.main.prod.cldev.sh/graphql"
 export const CHAINLINK_CONTRACT_ADDRESSES = {
+	42161: {
 	'BTC-USD': "0x942d00008d658dbb40745bbec89a93c253f9b882",
-	'ETH-USD': "0x3607e46698d218b3a5cae44bf381475c0a5e2ca7"
+	'ETH-USD': "0x3607e46698d218b3a5cae44bf381475c0a5e2ca7",
+	},
 }
