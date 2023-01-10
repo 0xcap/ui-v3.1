@@ -109,7 +109,11 @@
 		</div>
 		<div class="row">
 			<div class="label" use:tooltip={{content: 'Margin available to open new positions, equal to Equity - Locked Margin.'}}>Free Margin</div>
-			<div class="value">${formatForDisplay($freeMargin)}</div>
+			{#if $freeMargin >= 0}
+				<div class="value">${formatForDisplay($freeMargin)}</div>
+			{:else}
+				<div class="value">-${formatForDisplay($freeMargin * -1)}</div>
+			{/if}
 		</div>
 		<div class="row">
 			<div class="label" use:tooltip={{content: 'Equals Equity / Locked Margin. When < 100%, you can no longer open new positions. When < 20%, your account is liquidated.'}}>Margin Level</div>
