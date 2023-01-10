@@ -48,7 +48,7 @@
 
 	.button-wrapper {
 	  margin-bottom: 32px;
-	  margin-top: 32px;
+	  margin-top: 48px;
 	}
 	.button {
 	  display: inline-block;
@@ -122,12 +122,12 @@
 
   		<div class='button-wrapper'>
   			<a class='button' href='https://v3.cap.finance/#/trade'>Trade on v3 ▸</a>
-  			<h4>Isolated margin, simple orders, dark oracle</h4>
+  			<h4>Isolated margin, simple orders, dark oracles</h4>
   		</div>
 
   		<div class='button-wrapper'>
   			<a class='button' href='/trade'>Trade on v3.1 ▸</a><br/>
-  			<h4>Cross margin, advanced orders, chainlink oracles</h4>
+  			<h4>Cross margin, advanced orders, Chainlink oracles</h4>
   		</div>
 
   	</section>
@@ -144,7 +144,7 @@
   			<li><strong>Cross Margin.</strong> Margin is shared between positions, minimizing liquidations.</li>
   			<li><strong>Risk Management.</strong> Set limit, stop, take-profit, and stop-loss.</li>
   			<li><strong>Dynamic Funding.</strong> Longs pay shorts (and vice versa) based on open interest.</li>
-  			<li><strong>Multi Chain.</strong> CAP is available on Arbitrum, Polygon, Optimism, and more.</li>
+  			<li><strong>Multi Chain.</strong> CAP is available on Arbitrum (soon Polygon, Optimism, and more).</li>
   			<li><strong>Trustless.</strong> Interact directly with on-chain smart contracts (no intermediaries).</li>
   		</ul>
 
