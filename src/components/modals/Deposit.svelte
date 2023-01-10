@@ -28,6 +28,13 @@
 		userCurrency = await getCurrencyInUserWallet($address)
 	}
 
+	function setAmountToMax() {
+		if (userCurrency > 0)
+		{
+			amount = userCurrency
+		}
+	}
+
 	onMount(() => {
 		getUserAllowance();
 		getUserCurrency();
@@ -42,14 +49,26 @@
 		margin-bottom: 16px;
 		display: flex;
 	}
+	.label {
+		display: flex;
+		justify-content: flex-start;
+		flex-grow: 1;
+	}
+	.available-amount-zero {
+		display: flex;
+		justify-content: flex-end;
+		flex-grow: 0;
+	}
 	.available-amount {
 		display: flex;
 		justify-content: flex-end;
-		flex-grow: 1;
+		flex-grow: 0;
+		color: var(--primary);
+		cursor: pointer;
 	}
 </style>
 
-<Modal title='Deposit' width={280}>
+<Modal title='Deposit' width={300}>
 	
 	<div class='container'>
 
@@ -60,8 +79,8 @@
 		</div>
 
 		<div class='available-currency'>
-			<div>Wallet Balance:</div>
-			<div class='available-amount'>{`${formatForDisplay(userCurrency)} ${$currencyName}`}</div>
+			<div class='label'>Wallet Balance:</div>
+			<div class={userCurrency > 0 ? `available-amount` : `available-amount-zero`} on:click={setAmountToMax}>{`${formatForDisplay(userCurrency)} ${$currencyName}`}</div>
 		</div>
 
 		<div>
