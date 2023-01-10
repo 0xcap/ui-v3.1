@@ -3,7 +3,6 @@
 	import Modal from './Modal.svelte'
 	import Input from '@components/layout/Input.svelte'
 	import Button from '@components/layout/Button.svelte'
-  import Checkbox from "@components/layout/CheckBox.svelte"
 
 	import { selectedMarket, selectedMarketInfo, size, price, leverage, currencyName, margin, maxSize, tpPrice, slPrice, hasTPSL, isReduceOnly, orderType, isLong } from '@lib/stores'
 	import { hideModal } from '@lib/ui'

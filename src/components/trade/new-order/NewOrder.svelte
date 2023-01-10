@@ -46,12 +46,12 @@
   <div class="header">
     <div class="selected-market">
       <a on:click|stopPropagation={() => showModal("Markets")} class='market-button'>
-        <div>{$selectedMarketInfo.symbol} <span class='leverage'>{$selectedMarketInfo.maxLeverage}x</span></div> 
+        <div>{$selectedMarketInfo.symbol || "-"} <span class='leverage'>{$selectedMarketInfo.maxLeverage || 50}x</span></div> 
         <div class='down-caret'>▼</div>
       </a>
     </div>
     
-    <div class="price">{$selectedMarketInfo.price}</div>
+    <div class="price">{$selectedMarketInfo.price || "-"}</div>
 
     <div class="info-icon" on:click|stopPropagation={() => showModal("MarketInfo", $selectedMarketInfo)}>
       {@html INFO_ICON_CIRCLE}

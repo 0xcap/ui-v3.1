@@ -36,8 +36,14 @@
 	  font-size: 36px;
 	  font-weight: 600;
 	  letter-spacing: -0.045em;
-	  margin-bottom: 64px;
 	  margin-top: 16px;
+	  margin-bottom: 16px;
+	}
+
+	h4 {
+		margin-bottom: 64px;
+		font-size: 14px;
+		color: #999;
 	}
 
 	.button-wrapper {
@@ -99,6 +105,7 @@
   		<img src='im/logo-full.svg'>
   	</div>
   	<h1>Fully Decentralized Perpetuals Exchange</h1>
+  	<h4>This is version 4 (beta) for the CAP protocol. Looking for <a href='https://v3.cap.finance'>v3</a>?</h4>
   </header>
 
   <div class='body'>
