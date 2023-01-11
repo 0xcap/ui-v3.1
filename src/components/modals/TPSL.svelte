@@ -199,7 +199,7 @@
   }
   .input-gain-loss {
     width: 275px;
-    height: 46px;
+    height: 42px;
 	position: relative;
 	font-size: 85%;
   }
