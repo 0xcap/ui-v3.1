@@ -4,8 +4,6 @@ import { get } from 'svelte/store'
 
 export async function getUserHistory() {
 
-    return []; // TEST
-
     let _address = get(address)
     let _chainId = get(chainId)
 
