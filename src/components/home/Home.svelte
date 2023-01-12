@@ -159,8 +159,8 @@
   		<p>Your profits are paid from the pool and your losses are paid to the pool.</p>
 
   		<ul>
-  			<li>50% of trading fees go to the pool.</li>
-  			<li>40% go to the treasury which buys back the CAP token, among other things.</li>
+  			<li>45% of trading fees go to the pool.</li>
+  			<li>45% go to the treasury which buys back the CAP token, among other things.</li>
   			<li>10% go to keepers which trigger order executions (anyone can be a keeper).</li>
   		</ul>
 
