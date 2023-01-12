@@ -68,16 +68,16 @@ let allColumns = {
 <style>
 
 	.positions {
-		max-height: 251px;
+		height: 251px;
 		background-color: var(--layer50);
 	}
 	.orders {
-		max-height: 251px;
+		height: 251px;
 		background-color: var(--layer50);
 	}
 
 	.history {
-		max-height: 312px;
+		height: 251px;
 		background-color: var(--layer50);
 	}
 

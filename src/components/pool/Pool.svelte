@@ -6,24 +6,29 @@
 		- Should have an add liquidity and remove liquidity form on the right side
 	*/
 
+	import { onDestroy } from 'svelte';
 	import Pools from './Pools.svelte'
 	import Transactions from './Transactions.svelte'
 	import { address } from '@lib/stores'
 	import { getPoolBalance, getBufferBalance, getPoolWithdrawalFee, getUserPoolBalance } from '@api/pool'
 
 
-let isLoading = true, t3;
+	let isLoading = true, t;
 
-async function fetchData() {
-	  clearTimeout(t3);
-	  const done1 = await getPoolBalance();
-	  const done2 = await getBufferBalance();
-	  const done3 = await getPoolWithdrawalFee();
-	  const done4 = await getUserPoolBalance();
-	  t3 = setTimeout(fetchData, 5000);
-}
+	async function fetchData() {
+		clearTimeout(t);
+		const done1 = await getPoolBalance();
+		const done2 = await getBufferBalance();
+		const done3 = await getPoolWithdrawalFee();
+		const done4 = await getUserPoolBalance();
+		t = setTimeout(fetchData, 5*1000);
+	}
 
-$: fetchData($address)
+	$: fetchData($address)
+
+	onDestroy(() => {
+		clearTimeout(t);
+	});
 
 </script>
 

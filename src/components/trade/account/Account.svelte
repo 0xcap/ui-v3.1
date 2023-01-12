@@ -12,10 +12,11 @@
 	let dataTimeout;
 	function fetchData() {
 		if (!$address) return;
+		clearTimeout(dataTimeout)
 		getUserBalance();
 		getUserLockedMargin();
 		getUserUpl();
-		dataTimeout = setTimeout(fetchData, 10 * 1000);
+		dataTimeout = setTimeout(fetchData, 10*1000);
 	}
 
 	$: fetchData($address);

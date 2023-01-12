@@ -9,6 +9,7 @@
 		- The UPLs are pulled directly from the contract (in @api/positions: getUserPositionsWithUpls). No need to calculate them client side.
 	*/
 
+	import { onDestroy } from 'svelte';
 	import { get } from 'svelte/store'
     import { address, positions } from '@lib/stores'
     import { getUserPositionsWithUpls } from '@api/positions'
@@ -24,14 +25,14 @@
 
     export let allColumns;
 
-  let isLoading = true, t1;
+  let isLoading = true, t;
 
   async function fetchData() {
-		clearTimeout(t1);
+		clearTimeout(t);
 		const done = await getUserPositionsWithUpls();
 		if (done) isLoading = false;
-		t1 = setTimeout(fetchData, 5000);
-	}
+		t = setTimeout(fetchData, 5*1000);
+  }
 
   $: fetchData($address);
 
@@ -39,6 +40,9 @@
 
   let columns = allColumns
   
+  onDestroy(() => {
+	clearTimeout(t);
+  });
 
 </script>
 

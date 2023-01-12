@@ -8,6 +8,8 @@
 	- History should show direction, market, close price, and P/L. Click on a history item to show all details in a modal.
 	*/
 
+  import { onDestroy } from 'svelte';
+
   import Table from '@components/layout/table/Table.svelte'
   import Row from '@components/layout/table/Row.svelte'
   import Cell from '@components/layout/table/Cell.svelte'
@@ -23,32 +25,35 @@
 
   let history = []
 
-async function getHistory() {
-  try {
-    let _history = await getUserHistory()
-    if (_history.length > 0)
-    {
-      history = _history
+  async function getHistory() {
+    try {
+      let _history = await getUserHistory()
+      if (_history.length > 0)
+      {
+        history = _history
+      }
+    } catch (err) {
+    console.log(err)
     }
-  } catch (err) {
-  console.log(err)
   }
-}
 
-let isLoading = true, t1;
+  let isLoading = true, t;
 
-async function fetchData() {
-  clearTimeout(t1);
-  const done = await getHistory();
-  if (done) isLoading = false;
-  t1 = setTimeout(fetchData, 10000);
-}
+  async function fetchData() {
+    clearTimeout(t);
+    const done = await getHistory();
+    if (done) isLoading = false;
+    t = setTimeout(fetchData, 10*1000);
+  }
 
-$: fetchData($address);
+  $: fetchData($address);
+
+  onDestroy(() => {
+      clearTimeout(t);
+  });
 
 </script>
 
-<div class='history-section'>
 	<Table
   columns={columns}
   isLoading={false}
@@ -89,7 +94,6 @@ $: fetchData($address);
       {/each}
     </div>
   </Table>
-</div>
 
 <style>
 
@@ -103,20 +107,6 @@ $: fetchData($address);
     text-transform: uppercase;
     font-size: 85%;
     justify-content: space-between;
-  }
-
-  .label {
-    font-size: 16px;
-    display: flex;
-  }
-
-  .history-section {
-      max-height: 251px;
-  }
-
-  a {
-    color: var(--primary);
-    text-decoration: none;
   }
 
   .row {

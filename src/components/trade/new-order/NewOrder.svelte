@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from 'svelte';
   import { selectedMarketInfo, fundingRate } from "@lib/stores";
   import { showModal } from "@lib/ui";
   import { INFO_ICON_CIRCLE, CHEVRON_DOWN } from "@lib/icons";
@@ -38,6 +39,10 @@
   }
 
   $: setPriceInTitle($selectedMarketInfo)
+
+  onDestroy(() => {
+	  clearTimeout(t);
+  });
 
 </script>
 <!-- svelte-ignore a11y-click-events-have-key-events -->

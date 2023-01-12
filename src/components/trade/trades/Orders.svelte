@@ -8,6 +8,7 @@
 	- Order should show the market, direction, entry price, size, as well as X to close. Click on an order to show all details in a modal.
 	*/
 
+  import { onDestroy } from 'svelte';
   import { formatUnits, formatDate, formatSide, formatForDisplay, formatOrderType, formatMarketName } from '@lib/formatters'
   import { XMARK_ICON, PENCIL_ICON, LOADING_ICON } from '@lib/icons'
   import { DEFAULT_ORDERS_SORT_KEY } from '@lib/config'
@@ -28,7 +29,7 @@
     clearTimeout(t);
     const done = await getUserOrders();
     if (done) isLoading = false;
-    t = setTimeout(fetchData, 5000);
+    t = setTimeout(fetchData, 5*1000);
   }
 
   $: fetchData($address);
@@ -43,6 +44,10 @@
   let sortKey = "timestamp"
 
   let columns = allColumns
+
+  onDestroy(() => {
+		clearTimeout(t);
+	});
 
 </script>
 
