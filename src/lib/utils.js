@@ -22,8 +22,9 @@ export function hashString(_string) {
 }
 
 
-export function shortAddress(address) {
+export function shortAddress(address, shortMode) {
 	if (!address) return;
+	if (shortMode) return address.substring(0,5) + '…';
 	return address.substring(0,5) + '…' + address.slice(-4);
 }
 

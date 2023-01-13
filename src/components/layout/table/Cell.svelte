@@ -38,4 +38,5 @@
   .tools :global(a):hover :global(svg) {
     fill: var(--text0);
   }
+  
 </style>

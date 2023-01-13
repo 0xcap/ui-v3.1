@@ -8,6 +8,7 @@
 	- Order should show the market, direction, entry price, size, as well as X to close. Click on an order to show all details in a modal.
 	*/
 
+  import { onDestroy } from 'svelte';
   import { formatUnits, formatDate, formatSide, formatForDisplay, formatOrderType, formatMarketName } from '@lib/formatters'
   import { XMARK_ICON, PENCIL_ICON, LOADING_ICON } from '@lib/icons'
   import { DEFAULT_ORDERS_SORT_KEY } from '@lib/config'
@@ -28,7 +29,7 @@
     clearTimeout(t);
     const done = await getUserOrders();
     if (done) isLoading = false;
-    t = setTimeout(fetchData, 5000);
+    t = setTimeout(fetchData, 5*1000);
   }
 
   $: fetchData($address);
@@ -44,6 +45,10 @@
 
   let columns = allColumns
 
+  onDestroy(() => {
+		clearTimeout(t);
+	});
+
 </script>
 
 <Table
@@ -53,21 +58,21 @@
 >
   <div class='orders'>
 		{#each $orders as order}
-		<Row>
-      <Cell>{formatDate(order.timestamp)}</Cell>
-      <Cell hasClass={order.isLong ? 'green' : 'red'}>{formatSide(order.isLong, order.isReduceOnly)}</Cell>
-      <Cell><a href={`/trade/${order.market}`}>{formatMarketName(order.market)}</a></Cell>
-      <Cell>{formatForDisplay(formatUnits(order.price, 18))}</Cell>
-      <Cell>${formatForDisplay(formatUnits(order.size, 6))}</Cell>
-      <Cell>${formatForDisplay(formatUnits(order.margin, 6))}</Cell>
-      <Cell>{formatOrderType(order.orderType)}</Cell>
-      <Cell isTools={true}>
-				{#if order.orderType !== 0}
-          <a on:click|stopPropagation={() => { showModal('EditOrder', order) }}>{@html PENCIL_ICON}</a>
-          <a on:click|stopPropagation={() => { _cancelOrder(order.orderId) }}>{#if ordersCancelling[order.orderId]}{@html XMARK_ICON}{:else}{@html XMARK_ICON}{/if}</a>
-        {/if}
-        </Cell>
-    </Row>
+        <Row hasScrollbar={$orders.length > 4}>
+          <Cell>{formatDate(order.timestamp)}</Cell>
+          <Cell hasClass={order.isLong ? 'green' : 'red'}>{formatSide(order.isLong, order.isReduceOnly)}</Cell>
+          <Cell><a href={`/trade/${order.market}`}>{formatMarketName(order.market)}</a></Cell>
+          <Cell>{formatForDisplay(formatUnits(order.price, 18))}</Cell>
+          <Cell>${formatForDisplay(formatUnits(order.size, 6))}</Cell>
+          <Cell>${formatForDisplay(formatUnits(order.margin, 6))}</Cell>
+          <Cell>{formatOrderType(order.orderType)}</Cell>
+          <Cell isTools={true}>
+            {#if order.orderType !== 0}
+              <a on:click|stopPropagation={() => { showModal('EditOrder', order) }}>{@html PENCIL_ICON}</a>
+              <a on:click|stopPropagation={() => { _cancelOrder(order.orderId) }}>{#if ordersCancelling[order.orderId]}{@html XMARK_ICON}{:else}{@html XMARK_ICON}{/if}</a>
+            {/if}
+            </Cell>
+        </Row>
 		{/each}
 	</div>
 </Table>
@@ -79,8 +84,10 @@ a {
 		text-decoration: none;
 }
 
-.orders {
-
+@media (max-width: 650px) {
+	.orders {
+		width: 800px;
+	}
 }
 
 </style>

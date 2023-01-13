@@ -11,6 +11,7 @@
   import { createChart } from 'lightweight-charts';
  
   let chart
+  let chartContainer
   let areaSeries
   let currentSymbol
   let lastChartUpdateTimestamp = 0
@@ -20,7 +21,8 @@
 
     loadingChart = true
 
-    chart = createChart(document.getElementById('lightweight-graph'),
+    chartContainer = document.getElementById('lightweight-graph')
+    chart = createChart(chartContainer,
     {
       layout: {
             background: { color: '#24292e' },
@@ -130,6 +132,35 @@ function setLoadingChart() {
 $: getChartData($selectedMarketInfo.symbol)
 $: setLoadingChart($selectedMarketInfo.symbol)
 
+let windowWidth
+
+window.onresize = function() {
+      chartContainer = document.getElementById('lightweight-graph')
+      
+      if (windowWidth >= 800)
+      {
+        chart.applyOptions({ 
+            width: 510,
+         });
+      }
+
+      if (windowWidth < 800 && windowWidth > 650)
+      {
+        chart.applyOptions({ 
+            width: (windowWidth -  289),
+        });
+      }
+
+      if (windowWidth <= 650)
+      {
+        chart.applyOptions({ 
+            width: chartContainer.offsetWidth
+        });
+      }
+      
+      chart.timeScale().fitContent();
+}
+
 </script>
 
 <!--<svg on:mousemove={onMouseMove} on:mouseleave={() => activeIndex = null}>
@@ -147,6 +178,8 @@ $: setLoadingChart($selectedMarketInfo.symbol)
 		<stop offset="90%" stop-color="var(--layer50)" />
 	</linearGradient>
 </svg> -->
+
+<svelte:window bind:innerWidth={windowWidth}/>
 
 <div class={loadingChart ? 'loading' : 'spinner-hidden'}>
   <span class='spinner'>{@html LOADING_ICON}</span>

@@ -55,30 +55,51 @@
     buyLoading = false;
   }
   
+  let windowWidth
+
 </script>
 
+<svelte:window bind:innerWidth={windowWidth}/>
 <!-- svelte-ignore a11y-missing-attribute -->
 <div class="create-new-order">
   <div class='new-order'>  
     <div class="header">
-      <div class="left">
+      <div class="max-size-container">
         <div class='max-size-label'>Available:</div>
         <a on:click={() => (size.set($maxSize))}>{formatForDisplay($maxSize)} {$currencyName}</a>
       </div>
-      <div class="trigger-tpsl right">
-        <a on:click|stopPropagation={() => showModal('TriggerPrice')}>
+      <div class="trigger-tpsl-container">
+        <a class='trigger-price' on:click|stopPropagation={() => showModal('TriggerPrice')}>
           {#if $orderType == 0 || !$price || $price == 0}
-            +Trigger Price
+            {#if windowWidth > 650}
+              +Trigger Price
+            {:else}
+              Set Trigger Price
+            {/if}
           {:else}
-            {#if $orderType == 1}Limit: {$price}{/if}
-            {#if $orderType == 2}Stop: {$price}{/if}
+            {#if windowWidth > 650}
+              {#if $orderType == 1}Limit: {$price}{/if}
+              {#if $orderType == 2}Stop: {$price}{/if}
+            {:else}
+              {#if $orderType == 1}<div>Limit Price</div><div>{$price}</div>{/if}
+              {#if $orderType == 2}<div>Stop Price</div><div>{$price}</div>{/if}
+            {/if}
           {/if}
         </a>
-        <a on:click|stopPropagation={() => showModal('TPSL')}>
+        <a class='tpsl' on:click|stopPropagation={() => showModal('TPSL')}>
           {#if $hasTPSL == false}
-          +TP/SL
+            {#if windowWidth > 650}
+              +TP/SL
+            {:else}
+              <div>Set Take Profit</div>
+              <div>Set Stop Loss</div>
+            {/if}
           {:else}
-            {`${$tpPrice ? `TP: ${$tpPrice}` : `+TP`} / ${$slPrice ? `SL: ${$slPrice}` : `+SL`}`}
+            {#if windowWidth > 650}
+              {`${$tpPrice ? `TP: ${$tpPrice}` : `+TP`} / ${$slPrice ? `SL: ${$slPrice}` : `+SL`}`}
+            {:else}
+              <div>{`${$tpPrice ? `TP: ${$tpPrice}` : `Set Take Profit`}`}</div><div>{$slPrice ? `SL: ${$slPrice}` : `Set Stop Loss`}</div>
+            {/if}
           {/if}
         </a>
       </div>
@@ -117,8 +138,7 @@
     font-size: 85%;
     justify-content: space-between;
   }
-  .left,
-  .right {
+  .max-size-container {
     display: flex;
     flex-direction: row;
   }
@@ -132,7 +152,7 @@
   .max-size-label {
     margin-right: 6px;
   }
-  .trigger-tpsl {
+  .trigger-tpsl-container {
     display: flex;
     flex-direction: row;
     gap: 12px;
@@ -179,6 +199,61 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  @media (max-width: 650px) {
+    .header {
+      flex-direction: column;
+      font-size: 100%;
+      height: auto;
+    }
+    .margin-fee-container {
+      flex-direction: column;
+      margin: 6px 10px 6px 10px;
+      gap: 0px; 
+    }
+    .fee {
+      max-width: 100%;
+      width: auto;
+      margin-right: 0px;
+    }
+    .margin {
+      max-width: 100%;
+      width: auto;
+      margin-left: 0px;
+    }
+    a {
+      color: white;
+    }
+    .max-size-container,
+    .trigger-tpsl-container {
+      width: 100%;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .max-size-container {
+      background-color: var(--layer200);
+      height: 42px;
+      justify-self: center;
+      align-items: center;
+      border-radius: var(--base-radius);
+    }
+    .trigger-tpsl-container {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .trigger-price, .tpsl {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-basis: 50%;
+      height: 62px;
+      background-color: var(--layer200);
+      border-radius: var(--base-radius);
+      text-align: center;
+    }
   }
 
 </style>

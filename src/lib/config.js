@@ -59,6 +59,7 @@ export const CHAINDATA = {
 		},
 		subgraphUrl: "https://api.thegraph.com/subgraphs/name/kappacappa/capv4",
 		chainName: 'Arbitrum One',
+		chainNameShort: 'ARBI', //for mobile screens
 		chainId: '0xA4B1', //chainId number in hexadecimal prefixed by 0x
 		nativeAssetName: 'ETH',
 		nativeAssetSymbol: 'ETH',

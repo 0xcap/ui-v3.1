@@ -6,22 +6,29 @@
 		- Should have an add liquidity and remove liquidity form on the right side
 	*/
 
+	import { onDestroy } from 'svelte';
 	import Pools from './Pools.svelte'
 	import Transactions from './Transactions.svelte'
 	import { address } from '@lib/stores'
 	import { getPoolBalance, getBufferBalance, getPoolWithdrawalFee, getUserPoolBalance } from '@api/pool'
 
 
-let isLoading = true, t3;
+	let isLoading = true, t;
 
-async function fetchData() {
-	  clearTimeout(t3);
-	  const done1 = await getPoolBalance();
-	  const done2 = await getBufferBalance();
-	  const done3 = await getPoolWithdrawalFee();
-	  const done4 = await getUserPoolBalance();
-	  t3 = setTimeout(fetchData, 5000);
-}
+	async function fetchData() {
+		clearTimeout(t);
+		const done1 = await getPoolBalance();
+		const done2 = await getBufferBalance();
+		const done3 = await getPoolWithdrawalFee();
+		const done4 = await getUserPoolBalance();
+		t = setTimeout(fetchData, 5*1000);
+	}
+
+	$: fetchData($address)
+
+	onDestroy(() => {
+		clearTimeout(t);
+	});
 
 $: fetchData($address)
 
@@ -76,6 +83,32 @@ $: fetchData($address)
 		align-self: center;
 		margin-top: 2px;
 	}
+
+	@media (max-width: 650px) {
+		.grid {
+			grid-template-rows: auto;
+			grid-template-columns: 1fr;
+			grid-template-areas: 
+				"header"
+				"pools"
+				"transactions";
+			width: 100vw;
+			margin: 0 auto;
+			overflow-x: hidden;
+		}
+		.pools {
+			border: 1px solid var(--layerDark);
+			border-top: 0px;
+		}
+		.transactions {
+			border: 1px solid var(--layerDark);
+			border-top: 0px;
+		}
+		.header {
+			padding: 0 10px;
+		}
+	}
+
 
 </style>
 

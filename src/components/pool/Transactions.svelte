@@ -41,6 +41,13 @@
  .add-remove-desc {
     font-size: 14px;
     color: var(--layer300);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+ }
+
+ .add-remove-desc:last-child {
+    flex-grow: 0;
  }
 
  button {
@@ -48,6 +55,27 @@
     justify-content: space-around;
 	align-items: center;
 	padding: 10px 5px;
+}
+
+@media (max-width: 650px) {
+    .pool-transaction-wrapper {
+        flex-direction: column;
+        padding: 20px 10px;
+    }
+    .add-remove-wrapper:last-child {
+        padding-top: 20px;
+        margin-left: -10px;
+        margin-right: -10px;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-top: 1px;
+        border-top-style: solid;
+        border-top-color: var(--layerDark)
+    }
+    .add-remove-wrapper {
+        max-width: 100%;
+        padding-bottom: 10px;
+    }
 }
 
 </style>

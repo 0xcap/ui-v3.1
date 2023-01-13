@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from 'svelte';
   import { selectedMarketInfo, fundingRate } from "@lib/stores";
   import { showModal } from "@lib/ui";
   import { INFO_ICON_CIRCLE, CHEVRON_DOWN } from "@lib/icons";
@@ -38,6 +39,10 @@
   }
 
   $: setPriceInTitle($selectedMarketInfo)
+
+  onDestroy(() => {
+	  clearTimeout(t);
+  });
 
 </script>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -135,5 +140,32 @@
   }
   .chart {
     border-bottom: 1px solid var(--layerDark);
+  }
+
+  @media (max-width: 650px) {
+    .new-order {
+      width: 100vw;
+    }
+    .header {
+      padding: 0 10px;
+    }
+    .market-button {
+      display: flex;
+      gap: 10px;
+    }
+    .price {
+      margin-left: 10px;
+      padding-left: 10px;
+    }
+    .funding {
+      font-size: 12px;
+    }
+    .info-icon {
+      margin-right: 10px;
+    }
+    .chart {
+      width: 100vw;
+    }
+
   }
 </style>
