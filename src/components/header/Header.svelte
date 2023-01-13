@@ -20,6 +20,13 @@
 		flex-direction: row;
 		align-items: center;
 	}
+
+	@media (max-width: 650px) {
+		header {
+			padding: 10px;
+		}
+	}
+
 </style>
 
 <header>

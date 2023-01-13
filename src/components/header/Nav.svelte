@@ -36,6 +36,16 @@
 		background-color: var(--primary-highlighted);
 	}
 
+	@media (max-width: 650px) {
+		.nav {
+			grid-gap: 4px;
+			gap: 6px;
+		}
+		a {
+		}
+
+	}
+
 </style>
 
 <div class='nav'>

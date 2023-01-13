@@ -15,6 +15,8 @@
 
 	let _chainId = $chainId
 
+	let windowWidth
+
 </script>
 
 <style>
@@ -24,7 +26,6 @@
 		align-items: center;
 		gap: 10px; 
 	}
-
 	.settings {
 		margin-left: 20px;
 		display: flex;
@@ -38,11 +39,10 @@
 		fill: currentColor;
 		height: 20px;
 	}
-
 	.address {
 		display: flex;
 		align-items: center;
-		justify-content: flex-end;
+		justify-content: end;
 		text-align: right;
 		white-space: nowrap;
 		padding: 8px 16px;
@@ -50,26 +50,17 @@
 		border-radius: var(--base-radius);
 		background-color: var(--layer1);
 	}
-
 	.address :global(svg) {
 		fill:  var(--primary);
 		height: 16px;
 		margin-right: 8px;
 	}
-
 	.wrong-network {
 		color: var(--secondary);
 		padding-right: var(--base-padding);
 		white-space: nowrap;
 		cursor: pointer;
 	}
-
-	@media (max-width: 600px) {
-		.wrong-network {
-			display: none;
-		}
-	}
-
 	a.connect {
 		color: var(--primary-darkest);
 		text-decoration: none;
@@ -80,11 +71,25 @@
 		font-weight: 500;
 	}
 
+	@media (max-width: 650px) {
+		.connect {
+			gap: 6px;
+		}
+		.address {
+			padding: 8px 10px;
+		}
+		.address :global(svg) {
+			margin-right: 4px;
+		}
+	}
+
 </style>
+
+<svelte:window bind:innerWidth={windowWidth}/>
 
 <div class='connect'>
 
-	<a class='address' on:click|stopPropagation={() => {showModal('ChainSelect')}}>{[CHAINDATA[_chainId]['chainName']]}</a>
+	<a class='address' on:click|stopPropagation={() => {showModal('ChainSelect')}}>{windowWidth > 650 ? [CHAINDATA[_chainId]['chainName']] : [CHAINDATA[_chainId]['chainNameShort']]}</a>
 
 	{#if $address}
 		{#if $unsupportedNetwork}
@@ -94,7 +99,7 @@
 		{:else}
 		<div class='address'>
 			{@html CHECKMARK_CIRCLE_ICON}
-			{shortAddress($address)}
+			{shortAddress($address, true)}
 		</div>
 		{/if}
 

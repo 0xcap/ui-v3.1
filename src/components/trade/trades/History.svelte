@@ -8,6 +8,8 @@
 	- History should show direction, market, close price, and P/L. Click on a history item to show all details in a modal.
 	*/
 
+  import { onDestroy } from 'svelte';
+
   import Table from '@components/layout/table/Table.svelte'
   import Row from '@components/layout/table/Row.svelte'
   import Cell from '@components/layout/table/Cell.svelte'
@@ -23,33 +25,36 @@
 
   let history = []
 
-async function getHistory() {
-  try {
-    let _history = await getUserHistory()
-    if (_history.length > 0)
-    {
-      history = _history
+  async function getHistory() {
+    try {
+      let _history = await getUserHistory()
+      if (_history.length > 0)
+      {
+        history = _history
+      }
+    } catch (err) {
+    console.log(err)
     }
-  } catch (err) {
-  console.log(err)
   }
-}
 
-let isLoading = true, t1;
+  let isLoading = true, t;
 
-async function fetchData() {
-  clearTimeout(t1);
-  const done = await getHistory();
-  if (done) isLoading = false;
-  t1 = setTimeout(fetchData, 10000);
-}
+  async function fetchData() {
+    clearTimeout(t);
+    const done = await getHistory();
+    if (done) isLoading = false;
+    t = setTimeout(fetchData, 10*1000);
+  }
 
-$: fetchData($address);
+  $: fetchData($address);
+
+  onDestroy(() => {
+      clearTimeout(t);
+  });
 
 </script>
 
-<div class='history-section'>
-	<Table
+  <Table
   columns={columns}
   isLoading={false}
   isEmpty={history.length == 0}
@@ -57,7 +62,7 @@ $: fetchData($address);
     <div class='history-table'>
       {#each history as history}
       <div class='row' on:click|stopPropagation={() => showModal("HistoryDetails", history)}>
-        <Row>
+        <Row hasScrollbar={history.length > 4}>
           <Cell>{formatMarketName(history.market)}</Cell>
           {#if history.status == 'liquidated'}
             <Cell hasClass={history.isLong ? 'green' : 'red'}>{`Liquidated ${formatSide(history.isLong)}`}</Cell>
@@ -89,35 +94,15 @@ $: fetchData($address);
       {/each}
     </div>
   </Table>
-</div>
 
 <style>
 
-.header {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    border-bottom: 1px solid var(--layerDark);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 85%;
-    justify-content: space-between;
-  }
-
-  .label {
-    font-size: 16px;
-    display: flex;
-  }
-
-  .history-section {
-      max-height: 251px;
-  }
-
-  a {
-    color: var(--primary);
-    text-decoration: none;
-  }
+@media (max-width: 650px) {
+	.history-table {
+		width: 100vw;
+		overflow-x: auto;
+	}
+}
 
   .row {
     user-select: none;

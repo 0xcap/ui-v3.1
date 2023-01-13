@@ -26,6 +26,19 @@
 		font-weight: 500;
 		font-size: 24px;
     }
+
+    @media (max-width: 650px) {
+        .wrapper {
+            flex-direction: row;
+            padding: 20px 10px;
+        }
+        .balance-title {
+            font-size: 14px;
+        }
+        .balance-amount {
+            font-size: 18px;
+        }
+    }
 </style>
 
 

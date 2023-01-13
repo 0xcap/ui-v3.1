@@ -12,10 +12,11 @@
 	let dataTimeout;
 	function fetchData() {
 		if (!$address) return;
+		clearTimeout(dataTimeout)
 		getUserBalance();
 		getUserLockedMargin();
 		getUserUpl();
-		dataTimeout = setTimeout(fetchData, 10 * 1000);
+		dataTimeout = setTimeout(fetchData, 10*1000);
 	}
 
 	$: fetchData($address);
@@ -68,7 +69,7 @@
 	.gray:hover {
 		background-color: var(--layer300);
 	}
-	@media screen and (max-width: 900px) {
+	@media (max-width: 650px) {
 		.buttons {
 			flex-direction: column;
 			margin: 0;
@@ -78,6 +79,22 @@
 			margin: 5px 10px;
 			padding: 10px 5px;
 			width: 90%;
+		}
+		.account {
+			width: 100vw;
+		}
+		.header {
+			padding: 0 10px;
+		}
+		.data {
+			padding: 20px 10px;
+		}
+		.buttons {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			margin: 0 -10px;
+			margin-bottom: 10px;
 		}
 	}
 </style>

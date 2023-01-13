@@ -1,4 +1,6 @@
 <script>
+
+  import { selectedPanel } from '@lib/stores';
   import { getLabelForKey } from "@lib/formatters";
   import { LOADING_ICON } from "@lib/icons";
 
@@ -16,10 +18,12 @@
   }
 
   $: setGridTemplate(columns);
+
+
 </script>
 
 <div class="table" style={`--grid-template: ${gridTemplate};`}>
-  <div class="columns" id="columns">
+  <div class={$selectedPanel == 'history' ? 'columns short' : 'columns'} id="tableColumns">
     {#each columns as column}
       {#if column.key == "tools"}
         <div />
@@ -31,7 +35,7 @@
     {/each}
   </div>
 
-  <div id="infinite-scroll-container" class="data-wrapper">
+  <div id="infinite-scroll-container" class={$selectedPanel == 'history' ? 'data-wrapper short-width' : 'data-wrapper normal-width'}>
     {#if isLoading}
       <div class="loading">{@html LOADING_ICON}</div>
     {:else if isEmpty}
@@ -57,6 +61,23 @@
     grid-template-columns: var(--grid-template);
   }
 
+  @media (max-width: 799px) {
+    .columns {
+      width: 750px;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .columns {
+      width: 780px;
+      padding: 0 10px;
+    }
+
+    .short {
+      width: calc(100vw - 20px);
+    }
+  }
+
   .columns > div {
     height: 100%;
     display: flex;
@@ -68,9 +89,19 @@
   .data-wrapper {
     height: calc(100% - 39px);
     overflow-y: auto;
+    overflow-x: auto;
     scrollbar-color: var(--layer200);
     scrollbar-width: thin;
   }
+  @media (max-width: 799px) {
+    .normal-width {
+      width: 800px;
+    }
+    .short-width {
+      width: 100vw;
+    }
+  }
+
   .data-wrapper::-webkit-scrollbar-track {
     background-color: transparent;
     border-radius: 6px;

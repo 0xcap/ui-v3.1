@@ -18,6 +18,29 @@
 		max-width: var(--container-width);
 		margin: 0 auto;
 	}
+	@media (max-width: 799px) {
+		.grid {
+			width: 100vw;
+			max-width: 100vw;
+			margin: 0px 0px;
+			overflow-x: hidden;
+		}
+	}
+	@media (max-width: 650px) {
+		.grid {
+			display: grid;
+			grid-template-rows: auto;
+			grid-template-columns: 100vw;
+			grid-template-areas: 
+				"newOrder"
+				"account"
+				"trades";
+			width: 100vw;
+			max-width: 100vw;
+			margin: 0px 0px;
+			overflow-x: hidden;
+		}
+	}
 	.new-order {
 		grid-area: newOrder;
 		background-color: var(--layer50);
