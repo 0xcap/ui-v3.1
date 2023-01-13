@@ -25,28 +25,28 @@
 
   let history = []
 
-  async function getHistory() {
-    try {
-      let _history = await getUserHistory()
-      if (_history.length > 0)
-      {
-        history = _history
-      }
-    } catch (err) {
-    console.log(err)
+async function getHistory() {
+  try {
+    let _history = await getUserHistory()
+    if (_history.length > 0)
+    {
+      history = _history
     }
+  } catch (err) {
+  console.log(err)
   }
+}
 
-  let isLoading = true, t;
+let isLoading = true, t;
 
-  async function fetchData() {
-    clearTimeout(t);
-    const done = await getHistory();
-    if (done) isLoading = false;
-    t = setTimeout(fetchData, 10*1000);
-  }
+async function fetchData() {
+  clearTimeout(t);
+  const done = await getHistory();
+  if (done) isLoading = false;
+  t = setTimeout(fetchData, 10*1000);
+}
 
-  $: fetchData($address);
+$: fetchData($address);
 
   onDestroy(() => {
       clearTimeout(t);
