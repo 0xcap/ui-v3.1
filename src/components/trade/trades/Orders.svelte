@@ -67,10 +67,8 @@
           <Cell>${formatForDisplay(formatUnits(order.margin, 6))}</Cell>
           <Cell>{formatOrderType(order.orderType)}</Cell>
           <Cell isTools={true}>
-            {#if order.orderType !== 0}
               <a on:click|stopPropagation={() => { showModal('EditOrder', order) }}>{@html PENCIL_ICON}</a>
               <a on:click|stopPropagation={() => { _cancelOrder(order.orderId) }}>{#if ordersCancelling[order.orderId]}{@html XMARK_ICON}{:else}{@html XMARK_ICON}{/if}</a>
-            {/if}
             </Cell>
         </Row>
 		{/each}
