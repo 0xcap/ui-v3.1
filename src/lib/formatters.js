@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 import { ethers } from 'ethers'
 import { ADDRESS_ZERO, BPS_DIVIDER } from './config'
-import { locale, upl } from './stores'
+import { locale, upl, OILong, OIShort } from './stores'
 import { getChainData } from './utils'
 import { DEFAULT_CHAIN_ID, CHAINDATA } from './config'
 
@@ -149,20 +149,21 @@ export function formatPnl(pnl, isPercent) {
 }
 
 export function formatMarket(market) {
-
 	if (!market) return;
-
+	let _OIShort = get(OIShort)
+	let _OILong = get(OILong)
 	return {
 		'Name': market.symbol,
 		'Price': market.price,
 		'Funding Factor': `${formatForDisplay(100 * market.fundingFactor / BPS_DIVIDER)}%`,
 		'Max Leverage': `${market.maxLeverage}x`,
-		'Max Open Interest': formatForDisplay(formatUnits(market.maxOI, 6)),
+		'Long Open Interest': `$${formatForDisplay(_OILong)}`,
+		'Short Open Interest': `$${formatForDisplay(_OIShort)}`,
+		'Max Open Interest': `$${formatForDisplay(formatUnits(market.maxOI, 6))}`,
 		'Min Size': formatForDisplay(formatUnits(market.minSize, 6)),
 		'Min Settlement Time': `${market.minSettlementTime}s`,
 		'Fee': `${formatForDisplay(100 * market.fee / BPS_DIVIDER)}%`,
 	}
-
 }
 
 export function formatHistory(history) {
