@@ -23,14 +23,14 @@
 
   let columns = allColumns;
 
-  let history = []
+  let historyItems = []
 
 async function getHistory() {
   try {
     let _history = await getUserHistory()
     if (_history.length > 0)
     {
-      history = _history
+      historyItems = _history
     }
   } catch (err) {
   console.log(err)
@@ -57,12 +57,12 @@ $: fetchData($address);
   <Table
   columns={columns}
   isLoading={false}
-  isEmpty={history.length == 0}
+  isEmpty={historyItems.length == 0}
   >
     <div class='history-table'>
-      {#each history as history}
+      {#each historyItems as history}
       <div class='row' on:click|stopPropagation={() => showModal("HistoryDetails", history)}>
-        <Row hasScrollbar={history.length > 4}>
+        <Row hasScrollbar={historyItems.length > 4}>
           <Cell>{formatMarketName(history.market)}</Cell>
           {#if history.status == 'liquidated'}
             <Cell hasClass={history.isLong ? 'green' : 'red'}>{`Liquidated ${formatSide(history.isLong)}`}</Cell>
