@@ -134,29 +134,27 @@
   $: getChartData($selectedMarketInfo.symbol)
   $: setLoadingChart($selectedMarketInfo.symbol)
 
-  let windowWidth
-
   window.onresize = function() {
         chartContainer = document.getElementById('lightweight-graph')
         
-        if (windowWidth >= 800)
+        if (window.screen.availWidth >= 800)
         {
           chart.applyOptions({ 
               width: 510,
           });
         }
 
-        if (windowWidth < 800 && windowWidth > 650)
+        if (window.screen.availWidth < 800 && window.screen.availWidth > 650)
         {
           chart.applyOptions({ 
-              width: (windowWidth -  289),
+              width: (window.screen.availWidth -  289),
           });
         }
 
-        if (windowWidth <= 650)
+        if (window.screen.availWidth <= 650)
         {
           chart.applyOptions({ 
-              width: chartContainer.offsetWidth
+              width: window.screen.availWidth
           });
         }
         
@@ -191,8 +189,6 @@
 		<stop offset="90%" stop-color="var(--layer50)" />
 	</linearGradient>
 </svg> -->
-
-<svelte:window bind:innerWidth={windowWidth}/>
 
 <div class={loadingChart ? 'loading' : 'spinner-hidden'}>
   <span class='spinner'>{@html LOADING_ICON}</span>
