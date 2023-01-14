@@ -43,7 +43,7 @@ export const CHAINDATA = {
 		currencyAddress: '0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8', // USDC address
 		currencyDecimals: 6, // USDC
 		contracts: {
-			Trade: '0x39853756E886fD255830ea0876c80F2dde523803',
+			Trade: '0x08b1d6fe01660911b939e9c896ab53aba231f101',
 			Pool: '0x3E4CdcDC5E3F46DCe516adB428d107CE62A6D24a',
 			Store: '0xf16033d20ADDa47Dc99eA291D0F4C4FeF2fF47af',
 		},
