@@ -32,7 +32,7 @@ let allColumns = {
 			{key: 'price', gridTemplate: '1fr', sortable: true},
 			{key: 'size', gridTemplate: '1.2fr', sortable: true},
 			{key: 'margin', gridTemplate: '1fr', sortable: true},
-			{key: 'orderType', gridTemplate: '0.5fr', sortable: true},
+			{key: 'orderType', gridTemplate: '0.6fr', sortable: true},
 			//{key: 'isReduceOnly', gridTemplate: '0.75fr', sortable: true},
 			{key: 'tools', gridTemplate: '75px', sortable: false, permanent: true}
 		],
