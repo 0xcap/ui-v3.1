@@ -2,7 +2,7 @@
   import { getChainlinkPriceHistory } from "@api/markets";
   import { onMount } from "svelte";
   import { formatUnits } from '@lib/formatters';
-  import { getLatestBlock } from '@lib/utils';
+  import { getLatestBlock, delay } from '@lib/utils';
   import { selectedMarketInfo, chainId } from "@lib/stores"
   import { LOADING_ICON } from '@lib/icons'
 
@@ -16,6 +16,8 @@
   let currentSymbol
   let lastChartUpdateTimestamp = 0
   let loadingChart
+  let currentPrice
+
 
 	onMount(async () => {
 
@@ -58,108 +60,117 @@
 
   });
 
-async function getChartData() {
+  async function getChartData() {
 
-  let currentTime = Date.now() / 1000
-  let marketAtStart = $selectedMarketInfo.symbol
+    let currentTime = Date.now() / 1000
+    let marketAtStart = $selectedMarketInfo.symbol
 
-  if (currentSymbol !== $selectedMarketInfo.symbol || ((currentTime - lastChartUpdateTimestamp) > 180))
-  {
-    try {
+    if (currentSymbol !== $selectedMarketInfo.symbol || ((currentTime - lastChartUpdateTimestamp) > 60))
+    {
+      try {
 
-      let priceHistory = await getChainlinkPriceHistory(
-        CHAINDATA[$chainId]['chainlinkContracts'][$selectedMarketInfo.symbol]
-      );
+        let priceHistory = await getChainlinkPriceHistory(
+          CHAINDATA[$chainId]['chainlinkContracts'][$selectedMarketInfo.symbol]
+        );
 
-      if (!priceHistory) return;
+        if (!priceHistory) return;
 
-      priceHistory = priceHistory.priceHistory.nodes;
-      priceHistory.reverse()
+        priceHistory = priceHistory.priceHistory.nodes;
+        priceHistory.reverse()
 
-      let latestBlock = await getLatestBlock()
-      let latestBlockNumber = latestBlock.number
-      let latestBlockTimestamp = latestBlock.timestamp
-      let averageBlockTime = 0.4; //2 blocks/s on arbitrum at the moment
+        let latestBlock = await getLatestBlock()
+        let latestBlockNumber = latestBlock.number
+        let latestBlockTimestamp = latestBlock.timestamp
+        let averageBlockTime = 0.4; //2 blocks/s on arbitrum at the moment
 
-      areaSeries.setData([])
+        areaSeries.setData([])
 
-      for (let i = 0; i < priceHistory.length; i++)
-      {
-        let historyBlockNumber = Number(priceHistory[i].blockNumber)
-        let blockDiff = latestBlockNumber - historyBlockNumber
-        let timeDiff = Math.floor(blockDiff * averageBlockTime)
-        let estimatedHistoryTimestamp = latestBlockTimestamp - timeDiff
-        let dataPoint = {
-          time: estimatedHistoryTimestamp,
-          value: Number(formatUnits(priceHistory[i].latestAnswer, 8))
+        for (let i = 0; i < priceHistory.length; i++)
+        {
+          let historyBlockNumber = Number(priceHistory[i].blockNumber)
+          let blockDiff = latestBlockNumber - historyBlockNumber
+          let timeDiff = Math.floor(blockDiff * averageBlockTime)
+          let estimatedHistoryTimestamp = latestBlockTimestamp - timeDiff
+          let dataPoint = {
+            time: estimatedHistoryTimestamp,
+            value: Number(formatUnits(priceHistory[i].latestAnswer, 8))
+          }
+          areaSeries.update(dataPoint)
+          chart.timeScale().fitContent();
         }
-        areaSeries.update(dataPoint)
-        chart.timeScale().fitContent();
-      }
 
-      if (marketAtStart !== $selectedMarketInfo.symbol)
-      {
-        currentSymbol = null
-        getChartData()
-      }
-      else
-      {
-        currentSymbol = $selectedMarketInfo.symbol
-        lastChartUpdateTimestamp = Date.now() / 1000
-        loadingChart = false
-      }
+        if (marketAtStart !== $selectedMarketInfo.symbol)
+        {
+          currentSymbol = null
+          getChartData()
+        }
+        else
+        {
+          currentSymbol = $selectedMarketInfo.symbol
+          lastChartUpdateTimestamp = Date.now() / 1000
+          loadingChart = false
+        }
 
-    } catch (err) {
-    console.log(err);
+      } catch (err) {
+      console.log(err);
+      }
     }
   }
-}
 
-function setLoadingChart() {
+  function setLoadingChart() {
 
-  if (!currentSymbol)
-  {
-    currentSymbol = $selectedMarketInfo.symbol
+    if (!currentSymbol)
+    {
+      currentSymbol = $selectedMarketInfo.symbol
+    }
+    
+    if (currentSymbol !== $selectedMarketInfo.symbol)
+    {
+      loadingChart = true
+    }
+
   }
-  
-  if (currentSymbol !== $selectedMarketInfo.symbol)
-  {
-    loadingChart = true
+
+  $: getChartData($selectedMarketInfo.symbol)
+  $: setLoadingChart($selectedMarketInfo.symbol)
+
+  window.onresize = function() {
+        chartContainer = document.getElementById('lightweight-graph')
+        
+        if (window.screen.availWidth >= 800)
+        {
+          chart.applyOptions({ 
+              width: 510,
+          });
+        }
+
+        if (window.screen.availWidth < 800 && window.screen.availWidth > 650)
+        {
+          chart.applyOptions({ 
+              width: (window.screen.availWidth -  289),
+          });
+        }
+
+        if (window.screen.availWidth <= 650)
+        {
+          chart.applyOptions({ 
+              width: window.screen.availWidth
+          });
+        }
+        
+        chart.timeScale().fitContent();
   }
 
-}
+  async function quickChartUpdate() {
+    lastChartUpdateTimestamp = 0
+    await delay(1000) //delay by a second to increase chances of chart update containing the latest price
+    getChartData()
+    currentPrice = $selectedMarketInfo.price
+  }
 
-$: getChartData($selectedMarketInfo.symbol)
-$: setLoadingChart($selectedMarketInfo.symbol)
-
-let windowWidth
-
-window.onresize = function() {
-      chartContainer = document.getElementById('lightweight-graph')
-      
-      if (windowWidth >= 800)
-      {
-        chart.applyOptions({ 
-            width: 510,
-         });
+  $: if ($selectedMarketInfo.price !== currentPrice) {
+        quickChartUpdate()
       }
-
-      if (windowWidth < 800 && windowWidth > 650)
-      {
-        chart.applyOptions({ 
-            width: (windowWidth -  289),
-        });
-      }
-
-      if (windowWidth <= 650)
-      {
-        chart.applyOptions({ 
-            width: chartContainer.offsetWidth
-        });
-      }
-      
-      chart.timeScale().fitContent();
-}
 
 </script>
 
@@ -178,8 +189,6 @@ window.onresize = function() {
 		<stop offset="90%" stop-color="var(--layer50)" />
 	</linearGradient>
 </svg> -->
-
-<svelte:window bind:innerWidth={windowWidth}/>
 
 <div class={loadingChart ? 'loading' : 'spinner-hidden'}>
   <span class='spinner'>{@html LOADING_ICON}</span>

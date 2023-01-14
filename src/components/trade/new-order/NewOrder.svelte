@@ -5,7 +5,7 @@
   import { INFO_ICON_CIRCLE, CHEVRON_DOWN } from "@lib/icons";
   import Chart from "../Chart/Chart.svelte";
   import CreateNewOrder from "./CreateNewOrder.svelte";
-  import { getFundingRate } from '@api/markets';
+  import { getFundingRate, getOI } from '@api/markets';
   import { formatForDisplay } from '@lib/formatters'
   import { setPageTitle } from '@lib/ui'
   /* TODO
@@ -33,6 +33,14 @@
 	}
   $: fetchFundingData($selectedMarketInfo.symbol)
 
+  let t1;
+  async function fetchOpenInterest() {
+    clearTimeout(t1);
+    getOI($selectedMarketInfo.symbol);
+    t1 = setTimeout(fetchOpenInterest, 30*1000);
+  }
+  $: fetchOpenInterest($selectedMarketInfo.symbol)
+
   function setPriceInTitle(marketInfo) {
     if (!marketInfo || !marketInfo.price || !marketInfo.symbol) return;
     setPageTitle(`${marketInfo.price} ${marketInfo.symbol}`);
@@ -42,6 +50,7 @@
 
   onDestroy(() => {
 	  clearTimeout(t);
+    clearTimeout(t1);
   });
 
 </script>

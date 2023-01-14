@@ -94,3 +94,7 @@ export async function getCurrencyInUserWallet(address) {
 	userBalance = formatUnits(userBalance, CHAINDATA[_chainId]['currencyDecimals'])
 	return userBalance;
 }
+
+export function delay(time) {
+	return new Promise(resolve => setTimeout(resolve, time));
+  }

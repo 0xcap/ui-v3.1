@@ -27,9 +27,12 @@ export async function getFundingRate(market) {
 }
 
 export async function getOI(market) {
+	if (!market) return;
 	const contract = getContract({name: 'Store'});
-	OILong.set(formatUnits(await contract.getOILong(market)));
-	OIShort.set(formatUnits(await contract.getOIShort(market)));
+	const _OILong = await contract.getOILong(market)
+	const _OIShort = await contract.getOIShort(market)
+	OILong.set(formatUnits(_OILong, 6));
+	OIShort.set(formatUnits(_OIShort, 6));
 }
 
 export async function getChainlinkPriceHistory(contractAddress) {
