@@ -1,8 +1,14 @@
 <script>
 
+	import { onMount } from 'svelte';
+
 	import Account from './account/Account.svelte'
 	import NewOrder from './new-order/NewOrder.svelte'
 	import Trades from './trades/Trades.svelte'
+
+	onMount(() => {
+		window.scroll(0, 0)
+	}) 
 
 </script>
 
