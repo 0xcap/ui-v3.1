@@ -2,6 +2,7 @@
 
     import Button from '@components/layout/Button.svelte'
 
+    import tooltip from '@lib/tooltip'
     import { poolBalance, bufferBalance, userPoolBalance } from '@lib/stores'
     import { formatForDisplay } from '@lib/formatters'
 
@@ -25,6 +26,9 @@
     .balance-amount {
 		font-weight: 500;
 		font-size: 24px;
+    }
+    .help {
+        cursor: help;
     }
 
     @media (max-width: 650px) {
@@ -52,7 +56,7 @@
         </div>
     </div>
     <div class='balance-wrapper'>
-        <div class='balance-title'>
+        <div class='balance-title help' use:tooltip={{content: "The Buffer accumulates trader losses which are then streamed to the Pool over a period of time."}}>
             Buffer Balance
         </div>
         <div class='balance-amount'>

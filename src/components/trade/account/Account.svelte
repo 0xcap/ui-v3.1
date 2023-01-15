@@ -50,6 +50,9 @@
 	.label, .value {
 		font-size: 14px;
 	}
+	.label {
+	   cursor: help;
+    }
 	button {
 		flex: 50%;
 		padding: 10px 5px;

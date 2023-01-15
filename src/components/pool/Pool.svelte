@@ -75,13 +75,13 @@ $: fetchData($address)
 		font-weight: 600;
 		font-size: 16px;
 		align-self: center;
-		text-transform: uppercase;
+		text-transform: capitalize;
 	}
 	.subtitle {
 		color: var(--text300);
 		font-size: 14px;
 		align-self: center;
-		margin-top: 2px;
+		margin-top: 1px;
 	}
 
 	@media (max-width: 650px) {
