@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class='balance-wrapper'>
-        <div class='balance-title help' use:tooltip={{content: "The Buffer accumulates trader losses which are then streamed to the Pool over a period of time."}}>
+        <div class='balance-title help' use:tooltip={{content: "The Buffer accumulates trader losses, which are then streamed to the Pool over a period of time."}}>
             Buffer Balance
         </div>
         <div class='balance-amount'>
