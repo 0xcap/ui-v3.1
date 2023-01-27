@@ -188,8 +188,6 @@
 
   	<section class='dark'>
 
-  		<h2>Partners</h2>
-
   		<div class='partners'>
   			<a href='https://portfolio.nansen.ai/?utm_campaign=portfolio_cap_27oct22' target='_blank'><img src='im/partners/nansen.png'></a>
   			<a href='https://tokenterminal.com/terminal/projects/cap' target='_blank'><img src='im/partners/tokenterminal.svg'></a>
