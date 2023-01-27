@@ -134,27 +134,48 @@
   $: getChartData($selectedMarketInfo.symbol)
   $: setLoadingChart($selectedMarketInfo.symbol)
 
+  let innerWidth
+  let previousAvailWidth = window.screen.availWidth
+
   window.onresize = function() {
-        chartContainer = document.getElementById('lightweight-graph')
-        
-        if (window.screen.availWidth >= 800)
+
+        let windowWidth
+        if (innerWidth == previousAvailWidth) //this should detect a screen that has changed its orientation
+        {
+          windowWidth = window.screen.availWidth
+        }
+        else
+        {
+          if (innerWidth < window.screen.availWidth) //detecting if the browser's window has been manually scaled down on purpose
+          {
+            windowWidth = innerWidth
+          }
+          else //browser window is a full width window 
+          {
+            windowWidth = window.screen.availWidth
+          }
+        }
+
+        previousAvailWidth = window.screen.availWidth //when device orentation changes, innerWidth is still the pre-orientation width value
+
+        if (windowWidth >= 800)
         {
           chart.applyOptions({ 
               width: 510,
           });
         }
 
-        if (window.screen.availWidth < 800 && window.screen.availWidth > 650)
+        if (windowWidth < 800 && windowWidth > 650)
         {
           chart.applyOptions({ 
-              width: (window.screen.availWidth -  289),
+              width: (windowWidth -  289),
           });
         }
 
-        if (window.screen.availWidth <= 650)
+        if (windowWidth <= 650)
         {
           chart.applyOptions({ 
-              width: window.screen.availWidth
+              width: windowWidth
           });
         }
         
@@ -189,6 +210,8 @@
 		<stop offset="90%" stop-color="var(--layer50)" />
 	</linearGradient>
 </svg> -->
+
+<svelte:window bind:innerWidth={innerWidth}/>
 
 <div class={loadingChart ? 'loading' : 'spinner-hidden'}>
   <span class='spinner'>{@html LOADING_ICON}</span>
