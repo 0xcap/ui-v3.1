@@ -121,12 +121,7 @@
   		<p>Over <strong>$5,200,000,000</strong> has already been traded on CAP! Get started in seconds.</p>
 
   		<div class='button-wrapper'>
-  			<a class='button' href='https://v3.cap.finance/#/trade'>Trade on v3 ▸</a>
-  			<h4>Isolated margin, simple orders, dark oracles</h4>
-  		</div>
-
-  		<div class='button-wrapper'>
-  			<a class='button' href='/trade'>Trade on v3.1 ▸</a><br/>
+  			<a class='button' href='/trade'>Trade ▸</a><br/>
   			<h4>Cross margin, advanced orders, Chainlink oracles</h4>
   		</div>
 
@@ -134,9 +129,7 @@
 
   	<section>
 
-  		<h2>Features (v3.1)</h2>
-
-  		<p>(v3 docs are <a href='https://docs.cap.finance'>here</a>.)</p>
+  		<h2>Features</h2>
 
   		<p>CAP has all the features you need for fast and secure on-chain trading, including:</p>
 
@@ -152,7 +145,7 @@
 
   	<section>
 
-  		<h2>How It Works (v3.1)</h2>
+  		<h2>How It Works</h2>
 
   		<p>Buy to profit from rising prices and sell to profit from falling prices.</p>
 
